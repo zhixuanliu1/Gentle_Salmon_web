@@ -1,2 +1,3 @@
 # Hi, 🍣This is Gentle Salmon🍣
-### We are a group from CASA, UCL.
+### ------ an amazing group from CASA, UCL.
+### 
