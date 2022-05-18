@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+    <!-- Include the ECharts file you just downloaded -->
+        <script src="./assets/echarts.js"></script>
+    </head>
+
+    <style>
+.main{
+    position: relative; 
+    width: 90%;
+    height:450px; 
+    left: 5%;
+    /* background-color: mistyrose; */
+}
+.left{
+    position: absolute;
+    width: 33%;
+    height: 100%;
+    left:3%;
+    text-align: center;
+    /* background-color: hsl(194, 63%, 85%); */
+}
+.center{
+    position: absolute;
+    width: 33%;
+    height: 100%;
+    left:36%;
+    text-align: center;
+    /* background-color: hwb(271 67% 12%); */
+}
+.right{
+    position: absolute;
+    width: 33%;
+    height: 100%;
+    left:69%;
+    text-align: center;
+    /* background-color: hwb(81 76% 5%); */
+}
+#left{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    /* background-color: hsl(194, 63%, 85%); */
+}
+#center{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    /* background-color: hwb(271 67% 12%); */
+}
+#right{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    /* background-color: hwb(81 76% 5%); */
+}
+    </style>
+  
+  
+    <body>
+    <!-- Prepare a DOM with a defined width and height for ECharts -->
+        <div class="main">
+            
+            <div class="left">
+                <div id="left">
+                    <script type="text/javascript">
+                    var dom = document.getElementById('left');
+                    var myChart = echarts.init(dom, null, {
+                        renderer: 'canvas',
+                        useDirtyRect: false
+                    });
+                    var app = {};
+        
+                    var option;
+                    var colorPalette = ['#fed99c','#fc891f','#f23c1a'];
+                    var textcolor = '#565656';
+                    var titlecolor= 'rgb(103, 100, 100)';
+        
+                    option = {
+            title: {
+    text: 'Station proportion \n Largest car owned group ',
+    left: 'center',
+    top: '5%',
+    color: titlecolor
+},
+          tooltip: {
+            trigger: 'item'
+          },
+          legend: {
+            top: '18%',
+            left: 'center'
+          },
+
+          series: [
+            {
+              name: 'Count',
+              type: 'pie',
+              top:'10%',
+              radius: ['30%', '60%'],
+              avoidLabelOverlap: true,
+              itemStyle: {
+                borderRadius: 10,
+                borderColor: '#fff',
+                borderWidth: 2,
+              },
+              color: colorPalette,
+              label: {
+                show: false,
+                position: 'center'
+              },
+              emphasis: {
+                label: {
+                  show: true,
+                  fontSize: '40',
+                  fontWeight: 'bold',
+                  color: textcolor
+                }
+              },
+              labelLine: {
+                show: false
+              },
+                    data: [
+                    { value: 125, name: 'No car' },
+                    { value: 395, name: 'One car' },
+                    { value: 5, name: 'Two or more cars' },
+                    ]
+                    }
+                    ]
+                    };
+        
+                    if (option && typeof option === 'object') {
+                    myChart.setOption(option);
+                    }
+        
+                    window.addEventListener('resize', myChart.resize);
+                    </script>
+                </div>
+            </div>
+
+
+            <div class="center">
+                <div id="center">
+                    <script type="text/javascript">
+                    var dom = document.getElementById('center');
+                    var myChart = echarts.init(dom, null, {
+                        renderer: 'canvas',
+                        useDirtyRect: false
+                    });
+                    var app = {};
+        
+                    var option;
+                    var colorPalette = ['#fed99c','#fc891f','#f23c1a'];
+                    var textcolor = '#565656'
+        
+        option = {
+            title: {
+    text: 'Station proportion \n Largest employment income class ',
+    left: 'center',
+    top: '5%',
+},
+          tooltip: {
+            trigger: 'item'
+          },
+          legend: {
+            top: '18%',
+            left: 'center'
+          },
+
+          series: [
+            {
+              name: 'Count',
+              type: 'pie',
+              top:'10%',
+              radius: ['30%', '60%'],
+              avoidLabelOverlap: true,
+              itemStyle: {
+                borderRadius: 10,
+                borderColor: '#fff',
+                borderWidth: 2,
+              },
+              color: colorPalette,
+              label: {
+                show: false,
+                position: 'center'
+              },
+              emphasis: {
+                label: {
+                  show: true,
+                  fontSize: '40',
+                  fontWeight: 'bold',
+                  color:textcolor
+                }
+              },
+              labelLine: {
+                show: false
+              },
+              data: [
+                { value: 46, name: 'Low Income' },
+                { value: 254, name: 'Medium Income ' },
+                { value: 225, name: 'High Income' },
+              ]
+            }
+          ]
+        };
+        
+        if (option && typeof option === 'object') {
+          myChart.setOption(option);
+        }
+        
+        window.addEventListener('resize', myChart.resize);
+                    </script>
+
+                </div>
+            </div>
+
+
+            <div class="right">
+                <div id="right">
+                    <script type="text/javascript">
+                    var dom = document.getElementById('right');
+                    var myChart = echarts.init(dom, null, {
+                        renderer: 'canvas',
+                        useDirtyRect: false
+                    });
+                    var app = {};
+        
+                    var option;
+                    var colorPalette = ['#fed99c','#fc891f','#f23c1a'];
+                    var textcolor = '#565656'
+        
+        option = {
+            title: {
+    text: 'Station proportion \n Largest resident income class ',
+    left: 'center',
+    top: '5%',
+},
+          tooltip: {
+            trigger: 'item'
+          },
+          legend: {
+            top: '18%',
+            left: 'center'
+          },
+          series: [
+            {
+              name: 'Count',
+              type: 'pie',
+              top:'10%',
+              radius: ['30%', '60%'],
+              avoidLabelOverlap: true,
+              itemStyle: {
+                borderRadius: 10,
+                borderColor: '#fff',
+                borderWidth: 2,
+              },
+              color: colorPalette,
+              label: {
+                show: false,
+                position: 'center'
+              },
+              emphasis: {
+                label: {
+                  show: true,
+                  fontSize: '40',
+                  fontWeight: 'bold',
+                  color:textcolor
+                }
+              },
+              labelLine: {
+                show: false
+              },
+              data: [
+                { value: 5, name: 'Low Income' },
+                { value: 128, name: 'Medium Income ' },
+                { value: 392, name: 'High Income' },
+              ]
+            }
+          ]
+        };
+        
+        if (option && typeof option === 'object') {
+          myChart.setOption(option);
+        }
+        
+        window.addEventListener('resize', myChart.resize);
+                    </script>
+                </div>
+            </div>
+
+            
+        
+        
+        
+        </div>
+        
+    </body>
+
+</html>

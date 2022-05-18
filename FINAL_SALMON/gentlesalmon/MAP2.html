@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>bike flows</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link rel="stylesheet" href="./assets/font.css">
+    <link rel="stylesheet" href="./assets/MAP2.css">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js"></script>
+    <link rel="stylesheet" href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.1/mapbox-gl.css" type="text/css" />
+    <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+    <script type='text/javascript' src='http://code.jquery.com/jquery-1.10.2.min.js?ver=1.10.2'></script>
+    <script src="https://unpkg.com/deck.gl@^8.0.0/dist.min.js"></script>
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.js"></script>
+    <script src="./data/station_points.js" type="text/javascript"></script>
+    <script src="https://unpkg.com/deck.gl@^8.7.0-beta.6/dist.min.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+        <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
+</head>
+    <body>
+        <div id='map'></div>
+        <div id='console3'>
+            <button id="fly">Overview</button>
+            <button id="fly-back">Explore</button>
+            <div id="menu">
+                <input id="flowin_menu" type="radio" name="rtoggle" value1="true" value2 = "false" checked="checked">
+                <label for="flowin_menu">Flow in</label>
+                <input id="flowout_menu" type="radio" name="rtoggle" value1="false" value2="true">
+                <label for="flowout_menu">Flow out</label>
+            </div>
+            <div id="geocoder" class="geocoder"></div>
+        </div>
+        <div id='console1'>
+            <div id="title">
+                <p id="station_name">BIKE FLOWS</p>
+            </div>
+            <hr>
+            <div class="countnames">
+                <div id="flowleft">
+                    <h3>Connected stations</h3>
+                    <h3>total flows</h3>
+                    <h3>flow in</h3>
+                    <h3>flow out</h3>
+                </div>
+                <div id="flowright">
+                    <p id='count' style="text-align:right"></p>
+                    <p id='allflow'></p>
+                    <p id='flows_in'></p>
+                    <p id='flows_out'></p>
+                </div>
+
+                <div class='session'>
+                    <div class='row colors'></div>
+                    <br>
+                    <div>
+                    <span id="box1">start</span>
+                    <span id="box2">end</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div id='console2'>
+            <div>
+            <span id="top">TOP</span>
+            <span id="number">5</span>
+            <span id="top">connected stations</span>
+            <hr>
+                </div>
+                <p id='top1label'></p>
+                <p id='top2label'></p>
+                <p id='top3label'></p>
+                <p id='top4label'></p>
+                <p id='top5label'></p>
+        </div>
+    </body>
+
+
+<script>
+	mapboxgl.accessToken = 'pk.eyJ1Ijoidml0YW1pbnllZSIsImEiOiJjbDF2d2puZTgwMzN5M2NvOWo4MTYyeWVyIn0.rB_cXd4XaOhZaoPgPxFW9A';
+    const map = new mapboxgl.Map({
+        container: 'map', // container ID
+        style: 'mapbox://styles/vitaminyee/cl2uosh48001314noz0qwvbkw',
+        // mapbox://styles/vitaminyee/cl2uosh48001314noz0qwvbkw
+        center: [-87.69, 41.84],
+        zoom: 10.9,
+        pitch: 45,
+        bearing: 20,
+
+    });
+
+    map.addControl(new mapboxgl.NavigationControl());
+
+    const flowout = new deck.MapboxLayer({
+        id: 'arcs_1',
+        type: deck.ArcLayer,
+        data: [],
+        getSourcePosition: d => [d.start_lng, d.start_lat], // London
+        getTargetPosition: d => [d.end_lng, d.end_lat],
+        getSourceColor: [255,237,160],
+        getTargetColor: [240,59,32],
+        getWidth: d => Math.max(1, d.flows / 50),
+        visible: false
+        })
+
+    const flowin = new deck.MapboxLayer({
+        id: 'arcs_2',
+        type: deck.ArcLayer,
+        data: [],
+        getSourcePosition: d => [d.start_lng, d.start_lat], // London
+        getTargetPosition: d => [d.end_lng, d.end_lat],
+        getSourceColor: [255,237,160],
+        getTargetColor: [240,59,32],
+        getWidth: d => Math.max(1, d.flows / 50),
+        visible: true
+        })
+
+    const flowout_most = new deck.MapboxLayer({
+        id: 'arcs_3',
+        type: deck.ArcLayer,
+        data: [],
+        getSourcePosition: d => [d.start_lng, d.start_lat], // London
+        getTargetPosition: d => [d.end_lng, d.end_lat],
+        getSourceColor: [255,237,160],
+        getTargetColor: [240,59,32],
+        getWidth: d => Math.max(1, d.flows / 50),
+        visible: true
+        })
+
+
+
+
+    url = 'http://dev.spatialdatacapture.org:8866/data/bike3D'
+    url52_start = "http://dev.spatialdatacapture.org:8866/data/bikeselect/52";
+    url52_end = "http://dev.spatialdatacapture.org:8866/data/bikedest/52";
+
+
+    var jsonsta = {stationlist: []}
+    var geojsonsta = {
+        type: "FeatureCollection", 
+        features: [],
+    };
+    var json3d = {stationlist: []}
+    var geojson3d = {
+                type: "FeatureCollection",
+                features:[],
+            };
+    
+    var flowmost_start = []
+    var flowmost_end = []
+
+        $.getJSON( url52_start , function(data) {
+            $.each(data, function(k,v){
+                flowmost_start.push(v);   
+            })
+            flowout_most.setProps({data: flowmost_start});            
+        })
+        console.log(flowmost_start)
+
+        $.getJSON( url52_end , function(data) {
+            $.each(data, function(k,v){
+                flowmost_end.push(v);   
+            })
+            flowin_most.setProps({data: flowmost_end});
+        })
+            
+        console.log(flowmost_end)
+
+
+        function prepare_sta() {
+        $.getJSON(url, function (data) {
+            $.each(data, function (k, v) {
+                jsonsta.stationlist.push(v);
+        })
+            for (var i = 0; i < jsonsta.stationlist.length; i++) {
+                geojsonsta.features.push({
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [jsonsta.stationlist[i].station_lng, jsonsta.stationlist[i].station_lat]
+                    },
+                    "properties": {
+                        "pid": jsonsta.stationlist[i].pid,
+                        "station_name": jsonsta.stationlist[i].station,
+                        "flows_in": jsonsta.stationlist[i].flows_in,
+                        "flows_out": jsonsta.stationlist[i].flows_out,
+                        "flows_all": jsonsta.stationlist[i].flows_all,
+                        "station_count": jsonsta.stationlist[i].station_count,
+                        "top1":jsonsta.stationlist[i].first_station,
+                        "top2":jsonsta.stationlist[i].second_station,
+                        "top3":jsonsta.stationlist[i].third_station,
+                        "top4":jsonsta.stationlist[i].fourth_station,
+                        "top5":jsonsta.stationlist[i].fifth_station
+                    }
+                })
+            }
+        });
+        }
+        $(document).ready(function () {
+            prepare_sta();
+        });
+        console.log(geojsonsta)
+        
+        
+        function prepare_3d() {
+            $.getJSON(url, function (data) {
+                $.each(data, function (k, v) {
+                    json3d.stationlist.push(v);
+            })
+                for (var i = 0; i < json3d.stationlist.length; i++) {
+                    geojson3d.features.push({
+                        "type": "Feature",
+                        "geometry": {
+                            "type": "Polygon",
+                            "coordinates": [[[json3d.stationlist[i].coords1,json3d.stationlist[i].coords2],[json3d.stationlist[i].coords3,json3d.stationlist[i].coords4],[json3d.stationlist[i].coords5,json3d.stationlist[i].coords6],[json3d.stationlist[i].coords7,json3d.stationlist[i].coords8],[json3d.stationlist[i].coords9,json3d.stationlist[i].coords10],[json3d.stationlist[i].coords11,json3d.stationlist[i].coords12],[json3d.stationlist[i].coords13,json3d.stationlist[i].coords14],[json3d.stationlist[i].coords15,json3d.stationlist[i].coords16],[json3d.stationlist[i].coords17,json3d.stationlist[i].coords18],[json3d.stationlist[i].coords19,json3d.stationlist[i].coords20],[json3d.stationlist[i].coords21,json3d.stationlist[i].coords22],[json3d.stationlist[i].coords23,json3d.stationlist[i].coords24],[json3d.stationlist[i].coords25,json3d.stationlist[i].coords26],[json3d.stationlist[i].coords27,json3d.stationlist[i].coords28],[json3d.stationlist[i].coords29,json3d.stationlist[i].coords30],[json3d.stationlist[i].coords31,json3d.stationlist[i].coords32],[json3d.stationlist[i].coords33,json3d.stationlist[i].coords34],[json3d.stationlist[i].coords35,json3d.stationlist[i].coords36],[json3d.stationlist[i].coords37,json3d.stationlist[i].coords38],[json3d.stationlist[i].coords39,json3d.stationlist[i].coords40],[json3d.stationlist[i].coords41,json3d.stationlist[i].coords42]]]
+                        },
+                        "properties": {
+                            "pid": json3d.stationlist[i].pid,
+                            "station_name": json3d.stationlist[i].station,
+                            "flows_in": json3d.stationlist[i].flows_in,
+                            "flows_out": json3d.stationlist[i].flows_out,
+                            "flows_all": json3d.stationlist[i].flows_all,
+                            "station_count": json3d.stationlist[i].station_count,
+                            
+                        }
+                    })
+                }
+            });
+        }
+        $(document).ready(function () {
+            prepare_3d();
+        });
+        console.log(geojson3d)
+
+        function forwardGeocoder(query) {
+            const matchingFeatures = [];
+            for (const feature of geojsonsta.features) {
+            if (
+            feature.properties.station_name
+            .toLowerCase()
+            .includes(query.toLowerCase())
+            ) {
+            feature['place_name'] = `🌲 ${feature.properties.station_name}`;
+            feature['center'] = feature.geometry.coordinates;
+            matchingFeatures.push(feature);
+            }
+            }
+            return matchingFeatures;
+            }
+       
+
+    const geocoder = new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken,
+            marker: {
+
+            },
+            localGeocoder: forwardGeocoder,
+            zoom: 10.9,
+            placeholder: 'Text station name here',
+            mapboxgl: mapboxgl
+            })
+
+    document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
+
+
+
+
+    map.on('load', () => {
+
+        const layers = map.getStyle().layers;
+        const labelLayerId = layers.find(
+        (layer) => layer.type === 'symbol' && layer.layout['text-field']
+        ).id;
+        
+        map.addSource("stations", {
+                "type": "geojson",
+                "data": geojsonsta
+            });
+
+            map.addLayer({
+                'id': 'stations-layer',
+                'type': 'circle',
+                'source': 'stations',
+                'paint': {
+                    'circle-radius': 3,
+                    'circle-stroke-width': 0.2,
+                    'circle-color': [
+                    'interpolate',
+                    ['linear'],
+                    ['get', 'flows_all'],
+                    0,
+                    '#fef0d9',
+                    100,
+                    '#fdcc8a',
+                    1000,
+                    '#fc8d59',
+                    10000,
+                    '#e34a33',
+                    100000,
+                    '#b30000',
+                    ],
+                    'circle-stroke-color': 'white'
+                }
+            });
+
+            map.addLayer(
+                    {
+                    'id': 'add-3d-buildings',
+                    'source': 'composite',
+                    'source-layer': 'building',
+                    'filter': ['==', 'extrude', 'true'],
+                    'type': 'fill-extrusion',
+                    'minzoom': 10,
+                    'layout': {
+                                    'visibility': 'visible'
+                                },
+                    'paint': {
+                    'fill-extrusion-color': '#aaa',
+                    'fill-extrusion-height': [
+                    'interpolate',
+                    ['linear'],
+                    ['zoom'],
+                    10,
+                    0,
+                    10.05,
+                    ['get', 'height']
+                    ],
+                    'fill-extrusion-base': [
+                    'interpolate',
+                    ['linear'],
+                    ['zoom'],
+                    10,
+                    0,
+                    10.05,
+                    ['get', 'min_height']
+                    ],
+                    'fill-extrusion-opacity': 0.6
+                    }
+                    },
+                    labelLayerId
+                    );
+            
+            map.addSource('station3d', {
+                'type': 'geojson',
+                'data': geojson3d
+            });
+
+
+            map.addLayer({
+                    'id': 'station-extrusion',
+                    'type': 'fill-extrusion',
+                    'source': 'station3d',
+                    'layout': {
+                                    'visibility': 'none'
+                                },
+                    'paint': {
+                    
+                    'fill-extrusion-color': ['interpolate',
+                    ['linear'],
+                    ['get', 'flows_all'],
+                    0,
+                    '#fef0d9',
+                    100,
+                    '#fdcc8a',
+                    1000,
+                    '#fc8d59',
+                    10000,
+                    '#e34a33',
+                    100000,
+                    '#b30000',
+                    ],
+                    'fill-extrusion-height': ['interpolate',
+                    ['linear'],
+                    ['get', 'flows_all'],
+                                    0, 
+                                    200,
+                                    100,
+                                    500,
+                                    1000,
+                                    2000,
+                                    10000,
+                                    5000,
+                                    50000,
+                                    10000,
+                                    ],
+                
+                    'fill-extrusion-base': 0,
+                    'fill-extrusion-opacity': 0.8
+                    }
+                    });
+
+
+            map.addLayer(flowin)
+            map.addLayer(flowout)
+            map.addLayer(flowout_most)
+
+    });
+
+
+
+    const popup = new mapboxgl.Popup({
+            closeButton: false,
+            closeOnClick: false
+            });
+            
+    map.on('mouseenter', 'stations-layer', (e) => {
+        map.getCanvas().style.cursor = 'pointer';
+        
+        const coordinates = e.features[0].geometry.coordinates.slice();
+        const lat_h = e.features[0].properties.lat;
+        const lng_h = e.features[0].properties.lng;
+        const description = e.features[0].properties.station_name;
+        
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+        
+        popup.setLngLat(coordinates).setHTML(description).addTo(map);
+        });
+    
+    map.on('mouseleave', 'stations-layer', () => {
+        map.getCanvas().style.cursor = '';
+        popup.remove();
+        });
+
+    var dict_start = []
+    var dict_end = []
+
+    map.on('click', 'stations-layer', (e) => {
+        flowout_most.setProps({visible:false});
+        const coordinates = e.features[0].geometry.coordinates.slice();
+        const lat_c = e.features[0].properties.lat;
+        const lng_c = e.features[0].properties.lng;
+
+        const station_count = e.features[0].properties.station_count;
+        const station_name_label = e.features[0].properties.station_name;
+        const flows_in = e.features[0].properties.flows_in;
+        const flows_out = e.features[0].properties.flows_out;
+        const allflow = e.features[0].properties.flows_all;
+        
+        const top1 = e.features[0].properties.top1;
+        const top2 = e.features[0].properties.top2;
+        const top3 = e.features[0].properties.top3;
+        const top4 = e.features[0].properties.top4;
+        const top5 = e.features[0].properties.top5;
+
+        var description = e.features[0].properties.pid;
+        console.log(description)
+
+        urlstart = "http://dev.spatialdatacapture.org:8866/data/bikeselect/"+description;
+        urlend = "http://dev.spatialdatacapture.org:8866/data/bikedest/"+description;
+
+        console.log(urlstart)
+        console.log(urlend)
+
+                        $.getJSON( urlstart , function(data) {
+                            dict_start=[]
+                            $.each(data, function(k,v){
+                                dict_start.push(v);   
+                            })
+                            flowin.setProps({data: dict_start});
+                            })
+            console.log(dict_start)
+
+                        $.getJSON( urlend , function(data) {
+                            dict_end=[]
+                            $.each(data, function(k,v){
+                                dict_end.push(v);   
+                            })
+                            flowout.setProps({data: dict_end});
+                            })
+            
+            console.log(dict_end)
+
+        document.getElementById('top1label').textContent = top1;
+        document.getElementById('top2label').textContent = top2;
+        document.getElementById('top3label').textContent = top3;
+        document.getElementById('top4label').textContent = top4;
+        document.getElementById('top5label').textContent = top5;
+        document.getElementById('count').textContent = station_count;
+        document.getElementById('flows_in').textContent = flows_in;
+        document.getElementById('flows_out').textContent = flows_out;
+        document.getElementById('allflow').textContent = allflow;
+        document.getElementById('station_name').textContent = station_name_label;
+
+
+    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+
+    });
+
+    map.on('mouseenter', 'stations-layer', () => {
+    map.getCanvas().style.cursor = 'pointer';
+    });
+
+    map.on('mouseleave', 'stations-layer', () => {
+    map.getCanvas().style.cursor = '';
+    });
+
+
+
+    const flowinbutton = document.getElementById('flowin_menu');
+    flowinbutton.onclick =(layer)=> {
+        flowin.setProps({visible:true});
+        flowout.setProps({visible:false});}
+    
+    const flowoutbutton = document.getElementById('flowout_menu');
+    flowoutbutton.onclick =(layer)=> {
+        flowin.setProps({visible:false});
+        flowout.setProps({visible:true});}
+
+
+
+
+
+
+    document.getElementById('fly').addEventListener('click', () => {
+    map.setLayoutProperty('station-extrusion', 'visibility', 'visible')
+    map.setLayoutProperty('add-3d-buildings', 'visibility', 'none')
+    flowin.setProps({data:[]});
+    flowout.setProps({data:[]});
+    flowout_most.setProps({visible:false});
+    map.flyTo({
+    center: [-87.65, 41.92],
+    bearing: 50,
+            // Control the flight curve, making it move slowly and
+            // zoom out almost completely before starting to pan.
+            speed: 0.5, // Make the flying slow.
+            curve: 5, // Change the speed at which it zooms out.
+            // This can be any easing function: it takes a number between
+            // 0 and 1 and returns another number between 0 and 1.
+            pitch: 70,
+            zoom:10.5,
+            easing: function (t) {
+                return t;
+            
+    essential: true 
+            }
+        });
+
+    
+    });
+
+    document.getElementById('fly-back').addEventListener('click', () => {
+    map.setLayoutProperty('station-extrusion', 'visibility', 'none')
+    map.setLayoutProperty('add-3d-buildings', 'visibility', 'visible')
+    flowin.setProps({data:[]});
+    flowout.setProps({data:[]});
+    flowout_most.setProps({visible:false});
+
+    map.flyTo({
+    center: [-87.69, 41.84],
+    bearing: 20,
+            // Control the flight curve, making it move slowly and
+            // zoom out almost completely before starting to pan.
+            speed: 0.5, // Make the flying slow.
+            curve: 5, // Change the speed at which it zooms out.
+            // This can be any easing function: it takes a number between
+            // 0 and 1 and returns another number between 0 and 1.
+            pitch: 45,
+            zoom:10.8,
+            easing: function (t) {
+                return t;
+
+            
+    essential: true 
+    
+            }
+        });
+    });
+
+
+</script>
+
+</html>
+
+

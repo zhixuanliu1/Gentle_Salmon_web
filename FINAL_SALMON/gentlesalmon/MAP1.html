@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type='text/javascript' src='http://code.jquery.com/jquery-1.10.2.min.js?ver=1.10.2'></script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type='text/javascript' src='http://code.jquery.com/jquery-1.10.2.min.js?ver=1.10.2'></script>
+    <script src="https://unpkg.com/deck.gl@^8.0.0/dist.min.js"></script>
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.js"></script>
+    <script src="https://unpkg.com/deck.gl@^8.7.0-beta.6/dist.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/histogram-bellcurve.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <link rel="stylesheet" href="./assets/MAP1.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="words">
+        <span id="normal">Chicago currently operates a bike-share programme with over 5,800 bicycles, 600 docking stations. While, it has</span> 
+        <span id="mark">an unbalanced flow </span>
+        <span id="normal">distribution. Look at the map on the left, we can find the stations with great flows are clustered along the lake, such as Canal St & Adams St and Streete Dr &Grande. How developed our bike sharing system is!</span>
+    </div>
+    <div id="image">
+        <img src="./assets/pro-sal-reverse.png" alt="pro-sal-reverse" style="width: 140px;">
+    </div>
+    <iframe width="1300" height="656" src="https://flowmap.blue/13tKV1LOR4CcLZhTxrnpxNvB40Jx7IVpRaT-vc2pvQ1U/embed?v=41.883581%2C-87.477045%2C10.00%2C0%2C0&a=1&as=1&b=1&bo=46&c=1&ca=0&cz=10&d=0&fe=1&lt=1&lfm=ALL&col=YlOrRd&f=0" frameborder="0" allowfullscreen></iframe>
+    <div id="container"></div>
+</body>
+
+<script>
+
+    url = 'http://dev.spatialdatacapture.org:8866/data/bike3D'
+    var jsonsta = {stationlist: []}
+    const distribution = [];
+    function prepare_sta() {
+        $.getJSON(url, function (data) {
+            $.each(data, function (k, v) {
+                jsonsta.stationlist.push(v);
+        })
+
+
+            for (var i = 0; i < jsonsta.stationlist.length; i++) {
+                distribution.push(jsonsta.stationlist[i].flows_all)
+            }
+        });
+    }
+        $(document).ready(function () {
+            prepare_sta();
+        });
+        console.log(distribution)
+
+
+
+        var data = [ 43906,	 36152,	 32030,	 28772,	 25671,	 25067,	 24186,	 22700,	 22106,	 21739,	 19233,	 19113,	 18775,	 18402,	 16813,	 16601,	 15591,	 15431,	 15170,	 14890,	 14451,	 14100,	 13995,	 13968,	 13852,	 13809,	 13770,	 13724,	 13596,	 13511,	 13169,	 13066,	 12649,	 12549,	 12544,	 12532,	 12263,	 12232,	 12060,	 12012,	 11965,	 11882,	 11683,	 11496,	 11144,	 11087,	 11067,	 10930,	 10698,	 10621,	 10582,	 10464,	 10462,	 10256,	 10044,	 10035,	 9896,	 9880,	 9875,	 9857,	 9607,	 9601,	 9536,	 9505,	 9227,	 9214,	 9195,	 9065,	 9004,	 8858,	 8856,	 8840,	 8800,	 8768,	 8658,	 8648,	 8637,	 8619,	 8589,	 8582,	 8554,	 8536,	 8531,	 8491,	 8409,	 8375,	 8299,	 8249,	 8017,	 7990,	 7972,	 7921,	 7860,	 7846,	 7796,	 7738,	 7648,	 7626,	 7623,	 7616,	 7604,	 7574,	 7561,	 7489,	 7419,	 7343,	 7253,	 7220,	 7185,	 7157,	 7151,	 7149,	 7113,	 7110,	 6879,	 6874,	 6862,	 6842,	 6827,	 6776,	 6760,	 6741,	 6710,	 6710,	 6666,	 6525,	 6511,	 6510,	 6476,	 6423,	 6367,	 6363,	 6352,	 6347,	 6280,	 6133,	 6132,	 6031,	 5981,	 5977,	 5967,	 5940,	 5883,	 5856,	 5808,	 5725,	 5714,	 5675,	 5648,	 5644,	 5597,	 5584,	 5582,	 5544,	 5494,	 5494,	 5464,	 5452,	 5437,	 5402,	 5400,	 5389,	 5367,	 5365,	 5359,	 5332,	 5309,	 5291,	 5197,	 5184,	 5058,	 5016,	 4974,	 4918,	 4894,	 4868,	 4849,	 4833,	 4813,	 4728,	 4695,	 4642,	 4609,	 4608,	 4533,	 4511,	 4489,	 4464,	 4437,	 4431,	 4367,	 4308,	 4296,	 4216,	 4119,	 4087,	 4061,	 3998,	 3992,	 3880,	 3833,	 3788,	 3784,	 3766,	 3743,	 3719,	 3709,	 3662,	 3568,	 3566,	 3545,	 3492,	 3485,	 3421,	 3413,	 3389,	 3351,	 3308,	 3284,	 3250,	 3214,	 3207,	 3197,	 3121,	 3076,	 3057,	 3055,	 3049,	 3015,	 3015,	 3001,	 2987,	 2983,	 2981,	 2969,	 2945,	 2935,	 2923,	 2914,	 2901,	 2895,	 2894,	 2872,	 2856,	 2852,	 2821,	 2776,	 2756,	 2747,	 2728,	 2690,	 2678,	 2677,	 2661,	 2541,	 2540,	 2534,	 2504,	 2496,	 2490,	 2480,	 2419,	 2393,	 2335,	 2328,	 2287,	 2260,	 2245,	 2229,	 2228,	 2211,	 2170,	 2120,	 2120,	 2112,	 2106,	 2104,	 2086,	 2007,	 1981,	 1962,	 1940,	 1925,	 1919,	 1890,	 1862,	 1858,	 1775,	 1760,	 1754,	 1690,	 1687,	 1673,	 1670,	 1631,	 1619,	 1612,	 1593,	 1570,	 1558,	 1541,	 1539,	 1538,	 1525,	 1517,	 1508,	 1487,	 1481,	 1431,	 1420,	 1404,	 1397,	 1392,	 1378,	 1367,	 1342,	 1339,	 1338,	 1266,	 1260,	 1244,	 1238,	 1199,	 1187,	 1130,	 1119,	 1092,	 1079,	 1077,	 1059,	 1058,	 1055,	 1035,	 1023,	 1022,	 1014,	 1013,	 1010,	 1008,	 994,	 978,	 971,	 966,	 956,	 941,	 937,	 922,	 907,	 879,	 878,	 876,	 869,	 865,	 863,	 846,	 831,	 769,	 755,	 739,	 734,	 716,	 696,	 693,	 690,	 679,	 678,	 662,	 651,	 616,	 606,	 592,	 579,	 576,	 563,	 557,	 555,	 548,	 543,	 520,	 497,	 489,	 467,	 460,	 454,	 451,	 449,	 445,	 443,	 427,	 422,	 415,	 412,	 412,	 407,	 399,	 396,	 393,	 389,	 386,	 378,	 374,	 373,	 373,	 373,	 370,	 368,	 361,	 354,	 350,	 342,	 336,	 330,	 327,	 316,	 315,	 310,	 308,	 308,	 293,	 288,	 286,	 278,	 269,	 264,	 262,	 254,	 252,	 241,	 237,	 236,	 229,	 226,	 213,	 212,	 208,	 196,	 180,	 177,	 171,	 170,	 169,	 168,	 167,	 167,	 162,	 161,	 160,	 158,	 156,	 156,	 153,	 152,	 147,	 145,	 139,	 135,	 134,	 132,	 115,	 114,	 112,	 110,	 103,	 101,	 99,	 99,	 96,	 93,	 90,	 88,	 85,	 84,	 75,	 70,	 67,	 67,	 66,	 63,	 62,	 59,	 58,	 58,	 57,	 56,	 55,	 55,	 54,	 51,	 50,	 48,	 47,	 47,	 42,	 42,	 41,	 40,	 40,	 38,	 34,	 32,	 31,	 30,	 30,	 29,	 26,	 23,	 22,	 22,	 21,	 21,	 21,	 20,	 20,	 18,	 17,	 16,	 16,	 14,	 14,	 13,	 12,	 8,	 6,	 2,	 2,
+        ];
+
+    Highcharts.chart('container', {
+        title: {
+            text: 'Distribution of flows',
+            useHTML:true,
+            style:{
+                color: 'rgba(150,150,150)',
+                fontWeight: 'bold',
+                fontSize:"15px"
+            }
+        },
+        legend: {
+        itemStyle: {
+            color: 'rgba(105,105,105)',
+            fontWeight:"10px",
+        }
+    },
+        chart: {
+                backgroundColor: 'rgba(0,0,0,0)'
+            },
+        xAxis: [{
+            title: { text: ' ' },
+            alignTicks: false
+        }, {
+            title: { text: ' ' },
+            alignTicks: false,
+            opposite: true
+        }],
+        yAxis: [{
+            title: { text: ' ' }
+        }, {
+            title: { text: ' ' },
+            opposite: true
+        }],
+
+        plotOptions: {
+            histogram: {
+                Binsnumber:10
+            }
+        },
+
+        series: [{
+        name: 'Distribution',
+        type: 'histogram',
+        xAxis: 1,
+        yAxis: 1,
+        baseSeries: 's1',
+        zIndex: -1,
+        color: 'rgba(239, 47, 28,.8)',
+    }, {
+        name: 'Scatter',
+        type: 'scatter',
+        data: data,
+        id: 's1',
+        marker: {
+            radius: 1.5,
+            
+        },
+        color:'rgba(150,150,150)'
+    }]
+})
+
+
+</script>
+</html>

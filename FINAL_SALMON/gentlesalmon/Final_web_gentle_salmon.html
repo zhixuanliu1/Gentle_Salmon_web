@@ -1,0 +1,689 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+        <title>Gentle Salmon :: Sharing Bike in Chicago</title>
+        <script src='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js'></script>
+         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+         <link href='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css' rel='stylesheet'/>
+         <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+        <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js'></script>
+        <script type='text/javascript' src='http://code.jquery.com/jquery-1.10.2.min.js?ver=1.10.2'></script>
+        <link rel='stylesheet'
+          href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css'
+          type='text/css'/>
+        <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+        <link rel="stylesheet" media="all" href="./assets/index.css" />
+    </head>
+
+    <body>
+        <div id="root">
+            <div data-reactroot>
+                <section class = 'firstpage'>
+                    <div class="red-area">
+                        <header class="red" style="display: flex;">
+                            <div class="logo-menu">
+                                <img src="./assets/team_logo.svg" alt="casa">
+                                <span id="alltitle">SHARING BIKE IN CHICAGO</span> 
+                                <span id="gentle_salmon_title">Gentle Salmon</span> 
+                                <span id="from">from</span>
+                            </div>
+                            <a href="https://www.ucl.ac.uk/" target="_blank">
+                                <img src="./assets/ucl_logo.svg" alt="UCL">
+                            </a>
+                        </header>
+                        <div class="header-apple-box"></div>
+                        <div class="news-roller" style="height: 700px; display: block;">
+                            <div class="news-roller__msg" style="opacity: 1;">
+                                <div class="news-roller_shape">
+                                    <div class="news-roller__quote" style="opacity: 1; transform: translateY(0px);">
+                                        <p class="news-roller__title">
+                                         <!-- react-text: 20 -->“<!-- /react-text --><!-- react-text: 21 -->
+                                        I, Gentle Salmon, an environmentalist who loves riding sharing-bike, dream of protecting our cities from pollution. 
+                                        <br>
+                                        <br>
+                                        I would like to give some suggestions to the government, companies, 
+                                        <br>
+                                        NGOs and others.
+                                         <!-- /react-text --><!-- react-text: 22 -->”<!-- /react-text -->
+                                         </p>
+                                        <div class="news-roller__person-area">
+                                            <div class="news-roller__line"></div>
+                                             <p class="news-roller__person">
+                                                 <span class="news-roller__author">Gentle Salmon</span>
+                                                <!-- react-text: 27 --> <!-- /react-text --> , a British gentleman lives in Chicago<!-- react-text: 28 --><!-- /react-text -->
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="news-roller__image" style="opacity: 0.65; transform: translateY(0px);">
+                                        <img src="./assets/bike_woman.jpg">
+                                    </div>
+                                    <div class="news-roller__salmon" style="opacity: 1; transform: translateY(0px);">
+                                        <img src="./assets/bike-sal-orange.png">
+                                    </div>
+                                </div>
+                                <div class="news-roller__btn-area">
+                                    <a href="javascript:void(0);" class="news-roller__vis-btn">
+                                        <img src="./assets/scroll_down_btn.svg">
+                                    <p class="news-roller__btn-desc">
+                                    <!-- react-text: 35 -->See<!-- /react-text --><br><!-- react-text: 37 -->Visualization<!-- /react-text -->
+                                    </p>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                    <div class="interactivemap0" >
+                        <div class="map-containersmall" style="width:100%; height: 700px; position: relative; cursor: -webkit-grab;">
+                            <div style="width:100%; height: 700px; position: relative;">
+                                <iframe width="100%" height="700px" src="./US-Chicago.html" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="interactivemap1" >
+                        <div class="map-containersmall" style="width:90%; height: 750px; position: relative; cursor: -webkit-grab;">
+                            <div style="width:100%; height: 700px; position: relative;">
+                                <div id='side_left' style="width: 100%; height:750px;float: left">
+                                <iframe width="100%" height="700" src="MAP1.html"></iframe>
+                                <!-- <iframe width="100%" height="700" src="https://flowmap.blue/13tKV1LOR4CcLZhTxrnpxNvB40Jx7IVpRaT-vc2pvQ1U/embed?v=41.878982%2C-87.479105%2C10.00%2C0%2C0&a=1&as=1&b=1&bo=46&c=1&ca=0&cz=10&d=0&fe=1&lt=1&lfm=ALL&col=YlOrRd&f=0" frameborder="0" allowfullscreen></iframe> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="Question1" >
+                        <div class='Question1_figure_sal'>
+                             <img style= "width: 100%; height: 100%;" src="./assets/bg1.png" alt="bg1"  >
+                        </div>
+                        <div class="Qtext">
+                            <div class='Question1title'>
+                            Question 1:
+                            </div>
+                            <div class="Q1story1">
+                                <div class="Q1story1text">
+                                "Are you curious about the specific spatial
+                                 pattern of Chicago’s bike sharing system?"
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tips">
+                        <mark>&#128681 Tips:</mark>
+                        I create an amazing 3D intergrated interactive map for you. If you don't know how to start, I highly recommand: 
+                        <br> Firstly click the overview botton. 
+                        <br>
+                        Then click the <italic>Explore</italic> botton, and choose spots on the map to check the flow information and connected station on the board.
+                        <br>Also switch Flow in and Flow out to compare difference.
+                        <br>
+                        Text the station name in the search box to check its location on the map!
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="Q1story2">
+                        <div class="Q1story2text">
+                                Let’s explore it below.
+                                Click the buttons and stations on the map, you will find something surprised!
+                        </div>
+                    </div>
+                    
+                    <div class="interactivemap2">
+                        <div class="map-container" style="width:90%; height: 700px; position: relative; cursor: -webkit-grab;">
+                            <div style="width:100%; height: 700px; position: relative;">
+                                 <div id="regression" style="width: 100%; height:750px; float: left">
+                                     <iframe width="100%" height="700" src="MAP2.html"></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="Q2-finding">
+                        <div class='Q2-pro-sal'>
+                            <img style= "width: 100%; height: 100%;" src="./assets/bg2.png" alt="bg2"  >
+                        </div>
+                        <div class='Q2text'>
+                            <div class="Q1story1">
+                                <div class="Q1story1text">
+                                <!-- react-text: 20 -->“<!-- /react-text --><!-- react-text: 21 -->
+                                Oh my friends, you must have found these if you are as smart as I am.
+                                <!-- react-text: 20 -->”<!-- /react-text --><!-- react-text: 21 -->
+                                 </div>
+                            </div>
+                            <div class='gap'>
+                                <div class='story-text'>
+                                Flows are strongly clustered in the city center, which has numerous commercial and entertainment areas.
+                                </div>
+                            </div>
+                            <div class='gap1'>
+                                <div class='story-text'>
+                                 There is also a small peak at the University of Chicago station, probably due to the higher density of visitors.
+                                </div>
+                            </div>
+                            <div class='gap2'>
+                                <div class='story-text'>
+                                There are 296 stations with greater inflows (attractiveness) and 229 stations with greater outflows (producticity).
+                                </div>
+                            </div>
+                        </div>
+                        <div class="Question2">
+                        <div class="Qtext">
+                            <div class='Question1title'>
+                            Question 2:
+                            </div>
+                            <div class="Q1story1">
+                                <div class="Q1story1text">
+                                "So… Why does it look like this?
+                                <br>
+                                Maybe because of the socio-economic factors!"
+                                </div>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="tips">
+                        <mark>&#128681 Tips:</mark>
+                        People would usually choose the bike station within the shortest distance without considering about the administrative boarder. 
+                        <br>
+                        Therefore, based on similar studies, I decide to use buffer of 500m distance and recalculate socio-economic variables.
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="Q1story2">
+                        <div class="Q1story2text">
+                            Observe the economic differences, hover over for details！                                
+                        </div>
+                    </div>
+                    <div class="pie_chart">
+                        <div class="map-container" style="width:90%; height: 450px; position: relative; cursor: -webkit-grab;">
+                            <div style="width:100%; height: 450px; position: relative;">
+                                     <iframe width="100%" height="110%" src="Charts.html"></iframe>
+                            
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="tips">
+                        <mark>&#128587 Findings:</mark>
+                        In addition to exploring the unbalanced distribution of socio-economic conditions, I also conduct the multiple linear regression to understand the relationship between social-economic factors and total flows.
+                        <br>
+                        Variation inflation factors (VIF) are detected to avoid multicollinearity and improve model accuracy.
+                        <br>
+                        Finally, my model could explain <mark>57.2%</mark> variables!
+                    </div>
+                    <br>
+                    <br>
+                    <div class="tips">
+                        <mark>&#128681 Tips:</mark>
+                        Stations that not be consistent with model results possibly influenced by other reasons such as spatial autocorrelation. 
+                        <br>
+                        So I decide to visualise them geographically to check the outliers.
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+
+                        <div class="Qtext">
+                            <div class='Question1title'>
+                            Question 2:
+                            </div>
+                            <div class="Q1story1">
+                                <div class="Q1story1text">
+                                "So… Why does it look like this?
+                                <br>
+                                Maybe because of the socio-economic factors!"
+                                </div>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+
+
+                     <div class="Q1story2">
+                        <div class="Q1story2text">
+                        Try the slide, hover over a bike station to get their socio-economic information and find how they are related!                                
+                        </div>
+                    </div>
+
+                    <div class="interactivemap3">
+                        <div class="map-container" style="width:90%; height: 700px; position: relative; cursor: -webkit-grab;">
+                            <div style="width:100%; height: 700px; position: relative;">
+                                 <div id="regression" style="width: 100%; height:750px; float: left">
+                                     <iframe width="100%" height="700" src="MAP3.html"></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="Q3finding">
+                        <div class='Q3find-figure'>
+                            <img style= "width: 100%; height: 100%;" src="./assets/bg3.png" alt="bg3"  >
+                        </div>
+                        <div class="nav-box">
+                            <div class="f3story">
+                            <div class="f3storytext">
+                                "You may be confused with these graphs… 
+                                But don’t worry, I’ll give you some conclusion!"
+                            </div>
+                            </div>
+                            <div id="nav-left">
+                                <div>
+                                <button id="Population_Density">Population Density</button>
+                                </div>
+                                <div>
+                                <button id="Car_Ownership">Car Ownership</button>
+                                </div>
+                                <div>
+                                <button id="Wage">Wage</button>
+                                </div>
+                                <div>
+                                <button id="Employment_Density">Employment Density</button>
+                                </div>
+                            </div>
+                            <div id="nav-right">
+                                <p id="change">The coefficient of population density is positive. However! When the population density is low, there will be many stations with large flows. e.g. Station: Theater_on_the_lake & Daley_Center_Plaza.</p>
+                            </div>
+                        </div> 
+                        <div class="Q3">
+                            <div class="Qtext">
+                                <div class='Question1title'>
+                                Question 3:
+                                </div>
+                                <div class="Q1story1">
+                                    <div class="Q3story1text">
+                                    Like I do, you might notice that limited results for these factors can be found in some areas... It's totally normal!
+                                    </div>
+                                <br>
+                                    <div class="Q1story1text">
+                                    So...How did it happen?
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tips"> 
+                        <mark>&#128681 Tips: </mark>
+                        So I decide to switch to K-means clustering to figure out the relationships further.
+                        <br>
+                        I examine the flows as departure and destination to understand productivity and attractiveness of stations as data from the perspectives of employees and residents.
+                        <br>
+                        To optimise clustering results, I standardise data and use principal component analysis and choose number of clusters by Elbow and Silhouette score.
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="Q1story2">
+                        <div class="Q1story2text">
+                            Let's discuss the clustering results produced by advanced tools, such as QGIS, Python. 
+                         </div>
+                    </div>
+                    
+                    <br>
+                    <br>
+                    <br>
+
+                    <div class="clusteringresults">
+                          <img style= "width: 100%; height: 100%;" src="./assets/general.png" alt="cluster"  >
+                    </div>
+                    
+                    <div class="Clusterfinding">
+                    <div class='C-figure'>
+                        <img style= "width: 100%; height: 100%;" src="./assets/bg4.png" alt="bg4"  >
+                    </div>
+                    <div class="nav-box2">
+                        <div class="f3story">
+                        <div class="f3storytext">
+                            "Wow!
+                            <br>
+                            There are some fancy results!"
+                        </div>
+                        </div>
+                        <div id="nav-left2">
+                            <div>
+                                <button id="Wage2_r">Wage Results</button>
+                            </div>
+                            <div>
+                            <button id="Wage2_e">Wage Explanation</button>
+                            </div>
+                            <div>
+                                <button id="Car_Ownership2_r">Car Ownership Results</button>
+                            </div>
+                            <div>
+                                <button id="Car_Ownership2_e">Car Ownership Explanation</button>
+                            </div>
+
+                            <div>
+                                <button id="Job_Type2_r">Job Type Results</button>
+                            </div>
+                            <div>
+                                <button id="Job_Type2_e">Job Type Explanation</button>
+                            </div>
+                        </div>
+                        <div id="nav-right2">
+                            <div>
+                            <p id="change2">The possible reasons are: wealthy people usually commute a short distance or they care more about the environment; Lower incomes people who live on the fringes are more difficult to use the sharing bike due to a lack of stations; The shared bikes are  expensive in Chicago, and prices will skyrocket after the first half an hour (Wheel Fun Rentals n.a.).</p>                            
+                            </div>
+                            </div>
+                    </div>
+                    </div>
+
+                    <div class="red-area--reverse">
+                        <div class="container-advice">
+                            <div class="news-roller__advice">
+                                Advice for...
+                            </div>
+                            <div class="tips-a"> 
+                                <mark1>&#128521Aha, </mark1>
+                                do you remember that the goal of this curious Journey is to protect our cities from motor vehicle pollution and to encourage people actively participating in the green travel team. 
+                            <br>
+                            Above all, we can see that the shared bicycle business is difficult to develop in urban fringe areas, and most users are wealthy. 
+                            <br>
+                            Now I would like to give some advice.  
+                             </div>                      
+                                <div class="column1" style="background-color: #F23C1A" alt="Avatar">
+                                    <div class="news-roller__sugg">
+                                   &#127963 Government
+                                    </div>
+                                    <div class="overlay1" >
+                                        <div class="sug_list">
+                                            <ul>
+                                                <span id='entity'>To Government</span><hr><br><br>
+                                                <li>Conduct initiations to encourage enterprise to put bicycles in the suburbs.</li><br><br>
+                                                <li>Improve cycle lanes and regulate traffic rules, especially on routes with high use of shared bicycles.</li><br><br>
+                                                <li>Control the price of sharing bikes.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="column2" style="background-color: #F23C1A" alt="Avatar">
+                                    <p class="news-roller__sugg">
+                                    &#127980 Companies
+                                    </p>
+                                    <div class="overlay2">
+                                        <div class="sug_list">
+                                            <ul>
+                                                <span id='entity'> To Companies:</span><hr><br><br>
+                                                <li >Put more bikes on the suburb area.</li><br><br>
+                                                <li> Put more bikes in area with high employment density, especially for service and office industry.</li><br><br>
+                                                <li> Set different price in different areas. For some areas with low income people gathering, the price could be lower with some conditions.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="column3" style="background-color: #F23C1A" alt="Avatar">
+                                    <p class="news-roller__sugg">
+                                        &#127972 NGOs and Others
+                                    </p>
+                                    <div class="overlay3">
+                                        <div class="sug_list">
+                                            <ul>
+                                                <span id='entity'>To NGOs and Others:</span><hr><br><br>
+                                                <li> Propoganda to med/low income people, cars owners, people who are in industrial, entertainment and retail industries.</li><br><br>
+                                                <li> Actively support to governments about policy making of bike sharing.</li><br><br>
+                                                <li> Researchers could pay more attention on research considering socio economic factors based on above results.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        <p id="introduction">Who Are Gentle Salmons?</p>
+                        <div>
+                            <img src="assets\team.png" alt="ourteam" style="width: 100%;">
+                        </div>
+
+                        <div id="poems">
+                            <p id="Alicepoem">"My own, my gentle Salmon!</p> 
+                            <p id="Alicepoem">Salmon, come up! Salmon, go down!</p> 
+                            <p id="Alicepoem">Salmon come twist your tail around!</p> 
+                            <p id="Alicepoem">Of all the fishes of the sea</p> 
+                            <p id="Alicepoem">There’s none so good as Salmon!"</p> 
+                            <p id="Alicepoem_final" >———— The Lobster Quadrille from Alice in Wonderland</p>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                        <div>
+                            <img src="./assets/casathanks.png" alt="casa" style="width: 100%;">
+                        </div>
+                        <br>
+                        <div id="tutors">
+                            <div id="Thanks">
+                                <p id="Alicepoem">
+                                Thanks to:</p>
+                                <p id="Alicepoem">
+                                Module Leader: Ollie Ballinger,  Huanfa Chen</p>
+                                <p id="Alicepoem">
+                                Tutors:  Obi Sargoni, Sam Murphy, Andrew Renninger</p>
+                                <p id="Alicepoem">
+                                All CASA's teachers.</p>
+                                <p id="Alicepoem">
+                                And </p>
+                                <br>
+                                <p id="Alicepoem">
+                                The best team. </p>
+                            </div>
+                            </div>
+                    
+                            <footer>
+                                <p class="footer-desc">
+                                    <!-- react-text: 186 -->For more Information: data source, methodology, report, reference .etc <!-- /react-text -->
+                                    <br><!-- react-text: 188 -->please contact us in Github<!-- /react-text -->
+                                </p><br>
+                                <p><a href="https://github.com/CASA0009-Gentle-Salmon/Gentle_Salmon_web" target="_blank" rel="noopener noreferrer" style="color:white">Link</a>
+                                </p>
+                            </footer>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </body>
+    <script>
+        var text1 = "The coefficient of population density is positive. However! When the population density is low, there will be many stations with large flows. e.g. Station: Theater_on_the_lake & Daley_Center_Plaza"
+        var text2 = "The coefficient of vehicles is positive, however, when there are a few people with one car, many stations with large flows displays in a certain area. Especially the area near park, e.g. Michigan_Ave_Washington_st near Millennium Park; Dearborn_st_Monroe_st near Dearborn park."
+        var text3 = "The coefficient of Medium income is negative. However! When there are more middle-income people, many stations with large flows appear. Especially the stations near North Side Neighborhood such as Clark_st_Elm_st, which is scored as 86 of 100 and  very walkable."
+        var text4 = "The three of five job types were eliminated during VIF, which leads to the less comparison between different job types, therefore, more variables need to be added to improve the model or change another analysis method."
+        
+        
+        function handleButtonClick1(){
+            document.getElementById('change').textContent = text1;
+            document.getElementById("Population_Density").style.backgroundColor='#f04c30';
+            document.getElementById("Car_Ownership").style.backgroundColor='#e9e9e9';
+            document.getElementById("Wage").style.backgroundColor='#e9e9e9';
+            document.getElementById("Employment_Density").style.backgroundColor='#e9e9e9';
+        
+            document.getElementById("Population_Density").style.color='white';
+            document.getElementById("Car_Ownership").style.color='grey';
+            document.getElementById("Wage").style.color='grey';
+            document.getElementById("Employment_Density").style.color='grey';
+        }
+        function handleButtonClick2(){
+            document.getElementById('change').textContent = text2;
+            document.getElementById("Population_Density").style.backgroundColor='#e9e9e9';
+            document.getElementById("Car_Ownership").style.backgroundColor='#f04c30';
+            document.getElementById("Wage").style.backgroundColor='#e9e9e9';
+            document.getElementById("Employment_Density").style.backgroundColor='#e9e9e9';
+        
+            document.getElementById("Population_Density").style.color='grey';
+            document.getElementById("Car_Ownership").style.color='white';
+            document.getElementById("Wage").style.color='grey';
+            document.getElementById("Employment_Density").style.color='grey';
+            
+        }
+        function handleButtonClick3(){
+            document.getElementById('change').textContent = text3;
+            document.getElementById("Population_Density").style.backgroundColor='#e9e9e9';
+            document.getElementById("Car_Ownership").style.backgroundColor='#e9e9e9';
+            document.getElementById("Wage").style.backgroundColor='#f04c30';
+            document.getElementById("Employment_Density").style.backgroundColor='#e9e9e9';
+        
+            document.getElementById("Population_Density").style.color='grey';
+            document.getElementById("Car_Ownership").style.color='grey';
+            document.getElementById("Wage").style.color='white';
+            document.getElementById("Employment_Density").style.color='grey';
+        }
+        function handleButtonClick4(){
+            document.getElementById('change').textContent = text4;
+            document.getElementById("Population_Density").style.backgroundColor='#e9e9e9';
+            document.getElementById("Car_Ownership").style.backgroundColor='#e9e9e9';
+            document.getElementById("Wage").style.backgroundColor='#e9e9e9';
+            document.getElementById("Employment_Density").style.backgroundColor='#f04c30';
+        
+            document.getElementById("Population_Density").style.color='grey';
+            document.getElementById("Car_Ownership").style.color='grey';
+            document.getElementById("Wage").style.color='grey';
+            document.getElementById("Employment_Density").style.color='white';
+        }
+        
+        
+        var button = document.getElementById('Population_Density')
+        button.onclick = handleButtonClick1;
+        var button = document.getElementById('Car_Ownership')
+        button.onclick = handleButtonClick2;
+        var button = document.getElementById('Wage')
+        button.onclick = handleButtonClick3;
+        var button = document.getElementById('Employment_Density')
+        button.onclick = handleButtonClick4;
+
+var text5 = "The possible reasons are: wealthy people usually commute a short distance or they care more about the environment; Lower incomes people who live on the fringes are more difficult to use the sharing bike due to a lack of stations; The shared bikes are  expensive in Chicago, and prices will skyrocket after the first half an hour (Wheel Fun Rentals n.a.)."
+var text6 = "The spatial pattern of clustering based on start stations displays strong spatial correlations as stations within same cluster usually gather adjacent location. A cluster with largest flow and great number of high wage residents is observed in the center of Chicago. On the edge of Chicago, cluster with low flows and large proportion of medium and low wage residents is distributed. End wage map is more scattered, especially for those with medium and low wages."
+var text7 = "This is probably because these areas are too far from the city centre, and have a few sharing-bike stations (Buck and Buehler's, 2012)."
+var text8 = "The clustering with most flow but smallest of all cars owning groups is in the center of Chicago. Conversely, the lease flow cluster with most two car owners are in the outskirts of Chicago. While interestingly, the cluster of medium flow with numerous zero and one car owners are located along the lake."
+var text9 = "The development of sharing-bike has the largest impact on the service and office industries, and has the lowest impact on the industrial and retail industries. Bike-sharing system has the highest station inflows around CBD in the commuting pattern (Faghih-Imani et al., 2014)."
+var text10 = "The most flow with office and service industry workers cluster is located on the center. Meanwhile, the cluster with medium flow is closely gathered on the north part with large number of entertainment and retail groups. Similarly, the cluster with least flow located in the outskirts contains with great number of industrial and retail industry."
+
+
+function handleButtonClick5(){
+            document.getElementById('change2').textContent = text5;
+            document.getElementById("Wage2_e").style.backgroundColor='#f04c30';
+            document.getElementById("Wage2_r").style.backgroundColor='#e9e9e9';
+            document.getElementById("Car_Ownership2_e").style.backgroundColor='#e9e9e9';
+            document.getElementById("Car_Ownership2_r").style.backgroundColor='#e9e9e9';
+            document.getElementById("Job_Type2_e").style.backgroundColor='#e9e9e9';
+            document.getElementById("Job_Type2_r").style.backgroundColor='#e9e9e9';
+
+            document.getElementById("Wage2_e").style.color='white';
+            document.getElementById("Wage2_r").style.color='grey';
+            document.getElementById("Car_Ownership2_e").style.color='grey';
+            document.getElementById("Car_Ownership2_r").style.color='grey';
+            document.getElementById("Job_Type2_e").style.color='grey';
+            document.getElementById("Job_Type2_r").style.color='grey';
+}
+        
+function handleButtonClick6(){
+            document.getElementById('change2').textContent = text6;
+            document.getElementById("Wage2_e").style.backgroundColor='#e9e9e9';
+            document.getElementById("Wage2_r").style.backgroundColor='#f04c30';
+            document.getElementById("Car_Ownership2_e").style.backgroundColor='#e9e9e9';
+            document.getElementById("Car_Ownership2_r").style.backgroundColor='#e9e9e9';
+            document.getElementById("Job_Type2_e").style.backgroundColor='#e9e9e9';
+            document.getElementById("Job_Type2_r").style.backgroundColor='#e9e9e9';
+            
+            document.getElementById("Wage2_e").style.color='grey';
+            document.getElementById("Wage2_r").style.color='white';
+            document.getElementById("Car_Ownership2_e").style.color='grey';
+            document.getElementById("Car_Ownership2_r").style.color='grey';
+            document.getElementById("Job_Type2_e").style.color='grey';
+            document.getElementById("Job_Type2_r").style.color='grey';
+}
+
+function handleButtonClick7(){
+            document.getElementById('change2').textContent = text7;
+            document.getElementById("Wage2_e").style.backgroundColor='#e9e9e9';
+            document.getElementById("Wage2_r").style.backgroundColor='#e9e9e9';
+            document.getElementById("Car_Ownership2_e").style.backgroundColor='#f04c30';
+            document.getElementById("Car_Ownership2_r").style.backgroundColor='#e9e9e9';
+            document.getElementById("Job_Type2_e").style.backgroundColor='#e9e9e9';
+            document.getElementById("Job_Type2_r").style.backgroundColor='#e9e9e9';
+            
+            document.getElementById("Wage2_e").style.color='grey';
+            document.getElementById("Wage2_r").style.color='grey';
+            document.getElementById("Car_Ownership2_e").style.color='white';
+            document.getElementById("Car_Ownership2_r").style.color='grey';
+            document.getElementById("Job_Type2_e").style.color='grey';
+            document.getElementById("Job_Type2_r").style.color='grey';
+}
+
+function handleButtonClick8(){
+            document.getElementById('change2').textContent = text8;
+            document.getElementById("Wage2_e").style.backgroundColor='#e9e9e9';
+            document.getElementById("Wage2_r").style.backgroundColor='#e9e9e9';
+            document.getElementById("Car_Ownership2_e").style.backgroundColor='#e9e9e9';
+            document.getElementById("Car_Ownership2_r").style.backgroundColor='#f04c30';
+            document.getElementById("Job_Type2_e").style.backgroundColor='#e9e9e9';
+            document.getElementById("Job_Type2_r").style.backgroundColor='#e9e9e9';
+            
+            document.getElementById("Wage2_e").style.color='grey';
+            document.getElementById("Wage2_r").style.color='grey';
+            document.getElementById("Car_Ownership2_e").style.color='grey';
+            document.getElementById("Car_Ownership2_r").style.color='white';
+            document.getElementById("Job_Type2_e").style.color='grey';
+            document.getElementById("Job_Type2_r").style.color='grey';
+}
+
+function handleButtonClick9(){
+            document.getElementById('change2').textContent = text9;
+            document.getElementById("Wage2_e").style.backgroundColor='#e9e9e9';
+            document.getElementById("Wage2_r").style.backgroundColor='#e9e9e9';
+            document.getElementById("Car_Ownership2_e").style.backgroundColor='#e9e9e9';
+            document.getElementById("Car_Ownership2_r").style.backgroundColor='#e9e9e9';
+            document.getElementById("Job_Type2_e").style.backgroundColor='#f04c30';
+            document.getElementById("Job_Type2_r").style.backgroundColor='#e9e9e9';
+            
+            document.getElementById("Wage2_e").style.color='grey';
+            document.getElementById("Wage2_r").style.color='grey';
+            document.getElementById("Car_Ownership2_e").style.color='grey';
+            document.getElementById("Car_Ownership2_r").style.color='grey';
+            document.getElementById("Job_Type2_e").style.color='white';
+            document.getElementById("Job_Type2_r").style.color='grey';
+}
+
+function handleButtonClick10(){
+            document.getElementById('change2').textContent = text10;
+            document.getElementById("Wage2_e").style.backgroundColor='#e9e9e9';
+            document.getElementById("Wage2_r").style.backgroundColor='#e9e9e9';
+            document.getElementById("Car_Ownership2_e").style.backgroundColor='#e9e9e9';
+            document.getElementById("Car_Ownership2_r").style.backgroundColor='#e9e9e9';
+            document.getElementById("Job_Type2_e").style.backgroundColor='#e9e9e9';
+            document.getElementById("Job_Type2_r").style.backgroundColor='#f04c30';
+            
+            document.getElementById("Wage2_e").style.color='grey';
+            document.getElementById("Wage2_r").style.color='grey';
+            document.getElementById("Car_Ownership2_e").style.color='grey';
+            document.getElementById("Car_Ownership2_r").style.color='grey';
+            document.getElementById("Job_Type2_e").style.color='grey';
+            document.getElementById("Job_Type2_r").style.color='white';
+}
+
+var button = document.getElementById('Wage2_e')
+button.onclick = handleButtonClick5;
+var button = document.getElementById('Wage2_r')
+button.onclick = handleButtonClick6;
+var button = document.getElementById('Car_Ownership2_e')
+button.onclick = handleButtonClick7;
+var button = document.getElementById('Car_Ownership2_r')
+button.onclick = handleButtonClick8;
+var button = document.getElementById('Job_Type2_e')
+button.onclick = handleButtonClick9;
+var button = document.getElementById('Job_Type2_r')
+button.onclick = handleButtonClick10;
+        </script>
+</html>
